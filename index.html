@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To My Favorite Person — Our Love & Memories</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Playfair Display (Romantic Serif) & Plus Jakarta Sans (Clean Modern Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FDF8F5',
+            blush: '#FCECE8',
+            roseSoft: '#F5D0C5',
+            burgundy: '#6E2639',
+            burgundyDark: '#4D1826',
+            terracotta: '#B85D6F',
+            charcoal: '#2D2426',
+            warmGray: '#6B5B5E',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            'polaroid': '0 12px 30px -8px rgba(110, 38, 57, 0.14), 0 4px 10px -2px rgba(110, 38, 57, 0.06)',
+            'soft': '0 20px 40px -15px rgba(110, 38, 57, 0.1)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Subtle Animations & Polaroid Aesthetics */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(4deg); }
+    }
+    @keyframes fallPetal {
+      0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      15% { opacity: 0.75; }
+      85% { opacity: 0.65; }
+      100% {
+        transform: translateY(105vh) translateX(40px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    .animate-float {
+      animation: floatSlow 6s ease-in-out infinite;
+    }
+    .petal {
+      position: fixed;
+      top: -5vh;
+      pointer-events: none;
+      z-index: 1;
+      animation: fallPetal linear infinite;
+    }
+
+    /* Card Flip Effect for Love Notes */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FDF8F5;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #E2B8B0;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #B85D6F;
+    }
+  </style>
+</head>
+<body class="bg-cream text-charcoal font-sans antialiased selection:bg-roseSoft selection:text-burgundy relative overflow-x-hidden">
+
+  <!-- Floating Petals Container -->
+  <div id="petals-container" aria-hidden="true"></div>
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-cream/85 backdrop-blur-md border-b border-roseSoft/50 transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2.5 group">
+        <span class="w-9 h-9 rounded-full bg-burgundy text-cream flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+          <i data-lucide="heart" class="w-4 h-4 fill-current"></i>
+        </span>
+        <span id="nav-couple-names" data-editable="coupleNames" class="font-serif font-semibold text-lg sm:text-xl text-burgundy tracking-tight">
+          Alex & Maya
+        </span>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-warmGray">
+        <a href="#memories" class="hover:text-burgundy transition-colors">Memories</a>
+        <a href="#love-notes" class="hover:text-burgundy transition-colors">Love Notes</a>
+        <a href="#reasons" class="hover:text-burgundy transition-colors">Reasons Why</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="top" class="relative pt-14 pb-20 sm:pt-24 sm:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <!-- Decorative Soft Blobs -->
+    <div class="absolute top-10 left-1/4 w-72 h-72 bg-roseSoft/40 rounded-full blur-3xl -z-10"></div>
+    <div class="absolute bottom-10 right-1/4 w-96 h-96 bg-blush rounded-full blur-3xl -z-10"></div>
+
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blush border border-roseSoft text-burgundy text-xs sm:text-sm font-medium mb-6 shadow-xs">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-terracotta"></i>
+        <span id="hero-badge" data-editable="heroBadge">A little corner of the internet, just for you</span>
+      </div>
+
+      <h1 id="hero-title" data-editable="heroTitle" class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-burgundy leading-[1.12] tracking-tight mb-6">
+        To My Favorite Person in the World
+      </h1>
+
+      <p id="hero-subtitle" data-editable="heroSubtitle" class="text-base sm:text-xl text-warmGray max-w-2xl mx-auto leading-relaxed mb-10 font-light">
+        Every coffee run, laugh, and quiet times with you is my favorite memory. Here is a small collection of us.
+      </p>
+
+      <!-- Relationship Counter Widget -->
+      <div class="max-w-xl mx-auto bg-white/90 backdrop-blur-sm border border-roseSoft/80 rounded-3xl p-6 sm:p-8 shadow-soft mb-10">
+        <p class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold mb-4">
+          Loving You Since <span id="display-start-date" class="underline decoration-roseSoft underline-offset-4">November 27, 2023</span>
+        </p>
+        <div class="grid grid-cols-4 gap-2 sm:gap-4 text-center">
+          <div class="bg-blush/60 rounded-2xl p-3 sm:p-4">
+            <span id="counter-days" class="block font-serif text-2xl sm:text-4xl font-bold text-burgundy">0</span>
+            <span class="text-[11px] sm:text-xs uppercase tracking-wider text-warmGray font-medium">Days</span>
+          </div>
+          <div class="bg-blush/60 rounded-2xl p-3 sm:p-4">
+            <span id="counter-hours" class="block font-serif text-2xl sm:text-4xl font-bold text-burgundy">0</span>
+            <span class="text-[11px] sm:text-xs uppercase tracking-wider text-warmGray font-medium">Hours</span>
+          </div>
+          <div class="bg-blush/60 rounded-2xl p-3 sm:p-4">
+            <span id="counter-minutes" class="block font-serif text-2xl sm:text-4xl font-bold text-burgundy">0</span>
+            <span class="text-[11px] sm:text-xs uppercase tracking-wider text-warmGray font-medium">Minutes</span>
+          </div>
+          <div class="bg-blush/60 rounded-2xl p-3 sm:p-4">
+            <span id="counter-seconds" class="block font-serif text-2xl sm:text-4xl font-bold text-terracotta">0</span>
+            <span class="text-[11px] sm:text-xs uppercase tracking-wider text-warmGray font-medium">Seconds</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="#memories" class="px-7 py-3.5 rounded-full bg-burgundy text-cream font-medium text-sm sm:text-base hover:bg-burgundyDark transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+          <span>Explore Our Memories</span>
+          <i data-lucide="arrow-down" class="w-4 h-4"></i>
+        </a>
+        <a href="#love-notes" class="px-7 py-3.5 rounded-full bg-white text-burgundy border border-roseSoft font-medium text-sm sm:text-base hover:bg-blush transition-all">
+          Read My Letter
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo Showcase ("Our Memories") -->
+  <section id="memories" class="py-24 px-4 sm:px-6 lg:px-8 bg-white/40 border-t border-roseSoft/40">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold">Snapshots of Us</span>
+        <h2 data-editable="memoriesHeading" class="font-serif text-3xl sm:text-5xl font-bold text-burgundy mt-2 mb-4">Our Favorite Memories</h2>
+        <p data-editable="memoriesSubheading" class="text-warmGray text-sm sm:text-base">
+          From spontaneous adventures and silly faces to quiet coffee dates—every frame holds a piece of my heart.
+        </p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12">
+        <button onclick="filterMemories('All')" data-filter="All" class="filter-btn active px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-burgundy text-cream shadow-sm transition-all">
+          All Memories
+        </button>
+        <button onclick="filterMemories('Fun Times')" data-filter="Fun Times" class="filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-white text-warmGray border border-roseSoft/70 hover:bg-blush transition-all">
+          Fun Times
+        </button>
+        <button onclick="filterMemories('Casual Dates')" data-filter="Casual Dates" class="filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-white text-warmGray border border-roseSoft/70 hover:bg-blush transition-all">
+          Casual Dates
+        </button>
+        <button onclick="filterMemories('Church')" data-filter="Church" class="filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-white text-warmGray border border-roseSoft/70 hover:bg-blush transition-all">
+     Church
+   </button>
+      </div>
+
+      <!-- Polaroid Masonry Grid -->
+      <div id="memories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Memory Cards rendered dynamically via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Love Letter Section -->
+  <section id="love-notes" class="py-20 px-4 sm:px-6 lg:px-8 bg-blush/60 border-y border-roseSoft/50">
+    <div class="max-w-3xl mx-auto">
+      <div class="bg-white rounded-3xl p-8 sm:p-14 shadow-soft border border-roseSoft/60 relative">
+        <!-- Decorative Wax Seal Icon -->
+        <div class="w-14 h-14 rounded-full bg-burgundy text-cream flex items-center justify-center shadow-md mx-auto -mt-16 sm:-mt-20 mb-8 border-4 border-cream">
+          <i data-lucide="mail-open" class="w-6 h-6"></i>
+        </div>
+
+        <div class="text-center mb-8">
+          <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold">From My Heart</span>
+          <h2 data-editable="letterTitle" class="font-serif text-3xl sm:text-4xl font-bold text-burgundy mt-2">A Love Note For You</h2>
+        </div>
+
+        <div id="love-letter-body" data-editable="letterBody" class="space-y-5 text-charcoal/90 font-serif text-lg sm:text-xl leading-relaxed italic">
+          <p>My dearest,</p>
+          <p>
+            Happy 3rd anniversary, my love! ❤️ Three years have passed, and even though distance keeps us apart, my love for you has never changed. I know being far from each other isn't always easy, but I want you to know that you are always worth the wait and the distance. 
+          </p>
+          <p>
+           Thank you for choosing me and for staying with me through everything. I hope we continue to grow together, understand each other, and keep choosing one another no matter how far apart we are. I love you so much, and I look forward to the day when distance will no longer be between us. Here's to more years together! ❤️.
+          </p>
+          <p>Thank you for being my best friend, my safe place, and my greatest adventure.</p>
+        </div>
+
+        <div class="mt-10 pt-6 border-t border-roseSoft/50 flex items-center justify-between">
+          <div>
+            <p class="text-xs uppercase tracking-widest text-warmGray">Forever yours,</p>
+            <p id="letter-signature" data-editable="letterSignature" class="font-serif text-2xl font-semibold text-burgundy mt-1">Alex</p>
+          </div>
+          <i data-lucide="heart" class="w-7 h-7 text-terracotta fill-roseSoft"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Reasons Why I Love You Section -->
+  <section id="reasons" class="py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold">Little Things & Big Things</span>
+        <h2 data-editable="reasonsHeading" class="font-serif text-3xl sm:text-5xl font-bold text-burgundy mt-2 mb-4">Reasons Why I Love You</h2>
+        <p class="text-warmGray text-sm sm:text-base">Tap any card below to flip it open, or draw a random sweet note anytime you need a smile.</p>
+      </div>
+
+      <!-- Flip Cards Grid -->
+      <div id="reasons-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Interactive Random Reason Generator Box -->
+      <div class="max-w-xl mx-auto bg-burgundy text-cream rounded-3xl p-8 text-center shadow-soft relative overflow-hidden">
+        <div class="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-white/5"></div>
+        <span class="inline-block px-3 py-1 rounded-full bg-white/15 text-roseSoft text-xs font-semibold tracking-wider uppercase mb-4">
+          Need a Smile?
+        </span>
+        <p id="random-reason-display" class="font-serif text-xl sm:text-2xl italic leading-relaxed min-h-[4.5rem] flex items-center justify-center mb-6">
+          "Because your laugh is genuinely my favorite sound in the entire universe."
+        </p>
+        <button onclick="showRandomReason()" class="px-6 py-3 rounded-full bg-roseSoft text-burgundyDark font-bold text-sm hover:bg-white transition-all inline-flex items-center gap-2 shadow">
+          <i data-lucide="shuffle" class="w-4 h-4"></i>
+          <span>Open Another Note</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-roseSoft/60 py-12 px-4 sm:px-6 lg:px-8 text-center">
+    <div class="max-w-3xl mx-auto">
+      <div class="w-10 h-10 rounded-full bg-blush text-burgundy flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="heart" class="w-5 h-5 fill-current"></i>
+      </div>
+      <p id="footer-message" data-editable="footerMessage" class="font-serif text-xl text-burgundy font-semibold mb-2">
+        Made with all my love, for you — Always & Forever.
+      </p>
+      <p class="text-xs text-warmGray">
+        Every day with you is a new favorite memory.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- Photo Lightbox Modal -->
+  <div id="lightbox-modal" class="hidden fixed inset-0 z-50 bg-charcoal/85 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeLightbox(event)">
+    <div class="bg-white rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl border border-roseSoft/40 relative animate-fadeIn" onclick="event.stopPropagation()">
+      <button onclick="closeLightbox()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 text-burgundy hover:bg-burgundy hover:text-white flex items-center justify-center shadow transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div class="grid grid-cols-1 md:grid-cols-5">
+        <div class="md:col-span-3 bg-blush flex items-center justify-center max-h-[65vh] overflow-hidden">
+          <img id="lightbox-img" src="" alt="Memory" class="w-full h-full object-cover" />
+        </div>
+        <div class="md:col-span-2 p-6 sm:p-8 flex flex-col justify-between bg-cream">
+          <div>
+            <span id="lightbox-category" class="inline-block px-3 py-1 rounded-full bg-blush text-burgundy text-xs font-semibold mb-3">
+              Category
+            </span>
+            <p id="lightbox-date" class="text-xs text-terracotta font-medium mb-2">Date</p>
+            <h3 id="lightbox-title" class="font-serif text-2xl font-bold text-burgundy mb-4">Memory Title</h3>
+            <p id="lightbox-caption" class="text-sm text-warmGray leading-relaxed">
+              Full story behind this photo...
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * =========================================================================
+     *  EASY CUSTOMIZATION CONFIG — EDIT YOUR DETAILS RIGHT HERE!
+     * =========================================================================
+     *  Modify any text, dates, photo URLs, or love notes below to personalize.
+     */
+    const SITE_CONFIG = {
+      coupleNames: "Ced & Burj",
+      anniversaryDate: "2023-11-27", // Format: YYYY-MM-DD
+      heroBadge: "A little corner of the internet, just for you",
+      heroTitle: "To My Favorite Person in the World",
+      heroSubtitle: "Every coffee run, laugh, and quiet times with you is my favorite memory. Here is a small collection of us.",
+      memoriesHeading: "Our Favorite Memories",
+      memoriesSubheading: "From simple activites and going to church to quiet coffee dates, every frame holds a piece of my heart.",
+      letterTitle: "A Love Note For You",
+      letterBody: `<p>My dearest,</p>
+<p>Happy 3rd anniversary, my love! ❤️ Three years have passed, and even though distance keeps us apart, my love for you has never changed. I know being far from each other isn't always easy, but I want you to know that you are always worth the wait and the distance. Thank you for choosing me and for staying with me through everything. I hope we continue to grow together, understand each other, and keep choosing one another no matter how far apart we are. I love you so much, and I look forward to the day when distance will no longer be between us. Here's to more years together! ❤️.</p>
+<p>Thank you for being my best friend, my safe place, and my greatest adventure.</p>`,
+      letterSignature: "Ced",
+      reasonsHeading: "Reasons Why I Love You",
+      footerMessage: "Made with all my love, for you Always & Forever.",
+
+      // Photo Gallery ("Our Memories")
+      // HOW TO CHANGE THESE PHOTOS:
+      // 1. Replace the "image" link below with your own photo's URL (e.g., from Google Photos, Imgur, or Dropbox), OR
+      // 2. Put your photo file (e.g., "coffee.jpg") in the SAME folder as this index.html file and set: image: "coffee.jpg"
+      memories: [
+        {
+          id: 1,
+          title: "Casual Dates",
+          category: "Casual Dates",
+          date: "November 15, 2024",
+          image: "Casual Dates.png", // <-- REPLACE THIS IMAGE PATH OR URL
+          caption: "Simple, unhurried days spent together—grabbing bites, strolling around, and enjoying every quiet moment with you."
+        },
+        {
+          id: 2,
+          title: "Coffee Dates",
+          category: "Fun Times",
+          date: "September 8, 2024",
+          image: "Coffee Dates.png", // <-- REPLACE THIS IMAGE PATH OR URL
+          caption: "Our favorite ritual: iced lattes, sharing a croissant, and laughing over nothing for two hours."
+        },
+        {
+          id: 3,
+          title: "Going to the Church",
+          category: "Church",
+          date: "December 22, 2024",
+          image: "Going to the Church.png", // <-- Save your collage image as "collage-maker.jpg" in the same folder as index.html
+          caption: "Side by side in quiet prayer and gratitude—always thankful to have you by my side."
+        },
+        {
+          id: 4,
+          title: "Joining Different School Activities",
+          category: "Fun Times",
+          date: "February 9, 2025",
+          image: "Joining Different School Activities.png", // <-- REPLACE THIS IMAGE PATH OR URL
+          caption: "From school events and campus booths to cheering each other on—every busy school day was way more fun with you."
+        }
+      ],
+
+      // Flip Cards & Random Love Notes
+      reasons: [
+        { title: "Your Smile", note: "The way your whole face lights up whenever you're genuinely happy makes my entire day brighter." },
+        { title: "Your Kindness", note: "You care so deeply for the people around you, and your gentle heart inspires me every single day." },
+        { title: "Our Silly Moments", note: "Nobody else makes me laugh the way you do." },
+        { title: "How Safe You Feel", note: "Being in your arms feels like coming home after a long day." },
+        { title: "Your Passion", note: "Watching you talk about your dreams and things you love is one of my favorite things in the world." },
+        { title: "Just Being You", note: "You don't ever have to try to be anything else you are effortlessly wonderful." }
+      ]
+    };
+
+    // ==================== APPLICATION STATE ====================
+    let currentFilter = 'All';
+
+    // ==================== INITIALIZATION ====================
+    document.addEventListener('DOMContentLoaded', () => {
+      applyConfigToDOM();
+      renderMemories();
+      renderReasons();
+      startRelationshipCounter();
+      createFloatingPetals();
+      lucide.createIcons();
+    });
+
+    function applyConfigToDOM() {
+      document.title = `${SITE_CONFIG.coupleNames} — Our Love & Memories`;
+      document.querySelectorAll('[data-editable]').forEach(el => {
+        const key = el.getAttribute('data-editable');
+        if (SITE_CONFIG[key] !== undefined) {
+          if (key === 'letterBody') {
+            el.innerHTML = SITE_CONFIG[key];
+          } else {
+            el.textContent = SITE_CONFIG[key];
+          }
+        }
+      });
+      updateFormattedStartDate();
+    }
+
+    function updateFormattedStartDate() {
+      const dateObj = new Date(SITE_CONFIG.anniversaryDate + 'T00:00:00');
+      if (!isNaN(dateObj)) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('display-start-date').textContent = dateObj.toLocaleDateString('en-US', options);
+      }
+    }
+
+    // ==================== LIVE RELATIONSHIP COUNTER ====================
+    function startRelationshipCounter() {
+      function update() {
+        const start = new Date(SITE_CONFIG.anniversaryDate + 'T00:00:00').getTime();
+        const now = new Date().getTime();
+        const diff = Math.max(0, now - start);
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / 1000 / 60) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        document.getElementById('counter-days').textContent = days.toLocaleString();
+        document.getElementById('counter-hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('counter-minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('counter-seconds').textContent = String(seconds).padStart(2, '0');
+      }
+      update();
+      setInterval(update, 1000);
+    }
+
+    // ==================== RENDER MEMORIES GALLERY ====================
+    function renderMemories() {
+      const grid = document.getElementById('memories-grid');
+      const filtered = currentFilter === 'All'
+        ? SITE_CONFIG.memories
+        : SITE_CONFIG.memories.filter(m => m.category === currentFilter);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full text-center py-12 text-warmGray">No memories in this category yet.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map((item, idx) => {
+        const tiltClass = idx % 3 === 0 ? 'sm:-rotate-1' : idx % 3 === 1 ? 'sm:rotate-1' : 'sm:-rotate-0.5';
+        return `
+          <article onclick="openLightbox(${item.id})" class="group cursor-pointer bg-white p-4 pb-6 rounded-2xl shadow-polaroid border border-roseSoft/50 transition-all duration-300 hover:-translate-y-2 hover:rotate-0 ${tiltClass}">
+            <div class="relative aspect-[4/3] rounded-xl overflow-hidden bg-blush mb-4">
+              <img src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.src='https://placehold.co/800x600/FCECE8/6E2639?text=Sweet+Memory'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-xs text-burgundy text-[11px] font-semibold shadow-xs">
+                ${item.category}
+              </span>
+            </div>
+            <div class="px-1">
+              <p class="text-[11px] uppercase tracking-wider text-terracotta font-semibold mb-1">${item.date}</p>
+              <h3 class="font-serif text-xl font-bold text-burgundy mb-1.5 group-hover:text-terracotta transition-colors">${item.title}</h3>
+              <p class="text-sm text-warmGray line-clamp-2 leading-relaxed">${item.caption}</p>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function filterMemories(category) {
+      currentFilter = category;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-filter') === category) {
+          btn.classList.remove('bg-white', 'text-warmGray', 'border', 'border-roseSoft/70');
+          btn.classList.add('bg-burgundy', 'text-cream', 'shadow-sm');
+        } else {
+          btn.classList.add('bg-white', 'text-warmGray', 'border', 'border-roseSoft/70');
+          btn.classList.remove('bg-burgundy', 'text-cream', 'shadow-sm');
+        }
+      });
+      renderMemories();
+    }
+
+    // ==================== LIGHTBOX ====================
+    function openLightbox(id) {
+      const item = SITE_CONFIG.memories.find(m => m.id === id);
+      if (!item) return;
+
+      document.getElementById('lightbox-img').src = item.image;
+      document.getElementById('lightbox-category').textContent = item.category;
+      document.getElementById('lightbox-date').textContent = item.date;
+      document.getElementById('lightbox-title').textContent = item.title;
+      document.getElementById('lightbox-caption').textContent = item.caption;
+
+      document.getElementById('lightbox-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.add('hidden');
+    }
+
+    // ==================== REASONS FLIP CARDS & RANDOMIZER ====================
+    function renderReasons() {
+      const grid = document.getElementById('reasons-grid');
+      grid.innerHTML = SITE_CONFIG.reasons.map((reason, idx) => `
+        <div onclick="this.querySelector('.card-inner').classList.toggle('rotate-y-180')" class="perspective-1000 h-56 cursor-pointer group">
+          <div class="card-inner relative w-full h-full transition-transform duration-500 transform-style-3d">
+            <!-- Front -->
+            <div class="backface-hidden absolute inset-0 bg-white rounded-2xl border border-roseSoft/80 p-6 flex flex-col items-center justify-center text-center shadow-sm group-hover:shadow-md">
+              <span class="w-10 h-10 rounded-full bg-blush text-burgundy font-serif font-bold flex items-center justify-center mb-3">
+                #${idx + 1}
+              </span>
+              <h3 class="font-serif text-xl font-bold text-burgundy">${reason.title}</h3>
+              <span class="text-xs text-terracotta mt-2 flex items-center gap-1">
+                Tap to reveal <i data-lucide="sparkles" class="w-3 h-3"></i>
+              </span>
+            </div>
+            <!-- Back -->
+            <div class="backface-hidden rotate-y-180 absolute inset-0 bg-burgundy text-cream rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-md">
+              <i data-lucide="heart" class="w-5 h-5 text-roseSoft fill-current mb-3"></i>
+              <p class="font-serif italic text-base leading-relaxed">"${reason.note}"</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    let lastReasonIndex = -1;
+    function showRandomReason() {
+      let idx;
+      do {
+        idx = Math.floor(Math.random() * SITE_CONFIG.reasons.length);
+      } while (idx === lastReasonIndex && SITE_CONFIG.reasons.length > 1);
+      lastReasonIndex = idx;
+
+      const display = document.getElementById('random-reason-display');
+      display.style.opacity = '0';
+      setTimeout(() => {
+        display.textContent = `"${SITE_CONFIG.reasons[idx].note}"`;
+        display.style.opacity = '1';
+      }, 180);
+    }
+
+    // ==================== FLOATING PETALS ====================
+    function createFloatingPetals() {
+      const container = document.getElementById('petals-container');
+      const petalCount = 12;
+      for (let i = 0; i < petalCount; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.left = `${Math.random() * 100}vw`;
+        petal.style.animationDuration = `${12 + Math.random() * 14}s`;
+        petal.style.animationDelay = `${Math.random() * 10}s`;
+        petal.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="#F5D0C5" opacity="0.65"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+        container.appendChild(petal);
+      }
+    }
+  </script>
+</body>
+</html>
